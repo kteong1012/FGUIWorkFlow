@@ -1,0 +1,32 @@
+﻿using FairyGUI;
+{{x = class_info}}
+namespace MyUnityProject
+{
+    public partial class {{x.name}} : AUIWrap
+    {
+        public override string PackageName => "{{x.package_name}}";
+        public override string Url => "{{x.url}}";
+        public override string Componentname => "{{x.component_name}}";
+    {{~for f in x.fields~}}
+        {{~if f.attribute!=''~}}
+        [{{f.attribute}}]
+        {{~end~}}
+        public {{f.type}} {{f.name}} { get; set; }
+    {{~end~}}
+
+        protected override void AddButtonCallbacks()
+        {
+    {{~for f in x.fields~}}
+        {{~if f.is_button~}}
+        SetButtonEvent({{f.name}},() => {{f.button_callback}}());
+        {{~end~}}
+    {{~end~}}
+        }
+
+    {{~for f in x.fields~}}
+        {{~if f.is_button~}}
+        partial void {{f.button_callback}}();
+        {{~end~}}
+    {{~end~}}
+    }
+}
