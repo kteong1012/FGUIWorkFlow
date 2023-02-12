@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3829766a0e4169a438185a5474b4bd16, type: 3}
   m_Name: FGUIWorkFlowSettings
   m_EditorClassIdentifier: 
+  resourceDir: Assets/Examples/Resources
   outputDir: Assets/Examples/FGUI
   localOutputDir: Assets/Examples/FGUILocal
   localPackages: []
