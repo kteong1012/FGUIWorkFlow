@@ -1,10 +1,11 @@
 # FGUI自动生成代码和绑定
 生成原理：在Unity直接运行时加载FGUI物体，能获得完整的依赖关系，可以检测是否出现非法的跨包引用。
 
-![image](https://user-images.githubusercontent.com/44496710/218303987-9fa56381-c645-4624-98ad-bf0b5aeee7ed.png)
 
 ## 使用方法
 1. 打开"FGUI Work Flow / Settings"，设置各种选项
+
+![image](https://user-images.githubusercontent.com/44496710/218303987-9fa56381-c645-4624-98ad-bf0b5aeee7ed.png)
 
 2. 右键fgui文件点击生成即可
 
