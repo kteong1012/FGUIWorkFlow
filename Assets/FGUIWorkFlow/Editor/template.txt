@@ -18,7 +18,7 @@ namespace MyUnityProject
         {
     {{~for f in x.fields~}}
         {{~if f.is_button~}}
-        SetButtonEvent({{f.name}},() => {{f.button_callback}}());
+            SetButtonEvent({{f.name}},() => {{f.button_callback}}());
         {{~end~}}
     {{~end~}}
         }
