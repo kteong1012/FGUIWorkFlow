@@ -20,7 +20,6 @@ public class FGUICodeGenerator
         generator.Generate();
     }
 
-
     private const string ATTR_CUSTOM_NAME = "FGUICustomObject";
     private const string ATTR_ROOT_NAME = "FGUIComponentRoot";
     private const string ATTR_NAME = "FGUIObject";
@@ -195,18 +194,32 @@ public class FGUICodeGenerator
     private void WriteFiles(IEnumerable<FGUICodeClassInfo> list, string outputPath)
     {
         var sortedInfos = list.OrderByDescending(x => x.OutputPath);
-        var templateText = File.ReadAllText("Assets/FGUIWorkFlow/Editor/template.txt");
-        var template = Template.Parse(templateText);
         foreach (var info in sortedInfos)
         {
-            var content = template.Render(new
+            RenderByTemplate("Assets/FGUIWorkFlow/Editor/templateDefine.txt", Path.Combine(outputPath, "AutoGenerate", info.OutputPath), info);
+            if (_settings.createPartialCode)
             {
-                classInfo = info,
-            });
-            var fi = EnsureFileDirectory(Path.Combine(outputPath, info.OutputPath));
-            File.WriteAllText(fi.FullName, content);
+                var logicCodePath = Path.Combine(outputPath, "Logic", info.OutputPath);
+                if (!File.Exists(logicCodePath))
+                {
+                    RenderByTemplate("Assets/FGUIWorkFlow/Editor/templateLogic.txt", logicCodePath, info);
+                }
+            }
         }
     }
+
+    private void RenderByTemplate(string templatePath, string outputPath, FGUICodeClassInfo info)
+    {
+        var templateText = File.ReadAllText(templatePath);
+        var template = Template.Parse(templateText);
+        var content = template.Render(new
+        {
+            classInfo = info,
+        });
+        var fi = EnsureFileDirectory(outputPath);
+        File.WriteAllText(fi.FullName, content);
+    }
+
     private bool IsLocal(string packageName)
     {
         return _settings.localPackages.Contains(packageName);

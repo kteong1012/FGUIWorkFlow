@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class AUIWrap
 {
+    public GComponent Root { get; set; }
     public abstract string PackageName { get; }
     public abstract string Componentname { get; }
     public abstract string Url { get; }
@@ -18,6 +19,7 @@ public abstract class AUIWrap
     public void Destroy()
     {
         OnDestroy();
+        Root?.Dispose();
     }
     public void Show()
     {

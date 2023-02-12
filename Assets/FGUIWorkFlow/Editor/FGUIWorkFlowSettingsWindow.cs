@@ -49,6 +49,7 @@ public class FGUIWorkFlowSettingsWindow : EditorWindow
         EditorGUILayout.PropertyField(_serializedSettings.FindProperty("resourceDir"));
         EditorGUILayout.PropertyField(_serializedSettings.FindProperty("outputDir"));
         EditorGUILayout.PropertyField(_serializedSettings.FindProperty("localOutputDir"));
+        EditorGUILayout.PropertyField(_serializedSettings.FindProperty("createPartialCode"));
 
         EditorGUILayout.Space();
 

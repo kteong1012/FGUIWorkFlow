@@ -7,6 +7,7 @@ public class FGUIWorkFlowSettings : ScriptableObject
     public string resourceDir;
     public string outputDir;
     public string localOutputDir;
+    public bool createPartialCode;
     public List<string> localPackages = new();
     public List<string> commonPackages = new();
 }

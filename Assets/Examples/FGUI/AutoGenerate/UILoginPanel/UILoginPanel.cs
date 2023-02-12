@@ -20,7 +20,7 @@ namespace MyUnityProject
 
         protected override void AddButtonCallbacks()
         {
-        SetButtonEvent(btnLogin,() => OnClick_btnLogin());
+            SetButtonEvent(btnLogin,() => OnClick_btnLogin());
         }
 
         partial void OnClick_btnLogin();

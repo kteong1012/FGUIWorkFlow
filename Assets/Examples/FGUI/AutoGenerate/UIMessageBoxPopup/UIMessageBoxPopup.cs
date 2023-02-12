@@ -22,8 +22,8 @@ namespace MyUnityProject
 
         protected override void AddButtonCallbacks()
         {
-        SetButtonEvent(btnConfirm,() => OnClick_btnConfirm());
-        SetButtonEvent(btnCancel,() => OnClick_btnCancel());
+            SetButtonEvent(btnConfirm,() => OnClick_btnConfirm());
+            SetButtonEvent(btnCancel,() => OnClick_btnCancel());
         }
 
         partial void OnClick_btnConfirm();

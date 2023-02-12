@@ -1,0 +1,12 @@
+﻿using FairyGUI;
+{{x = class_info}}
+namespace MyUnityProject
+{
+    public partial class {{x.name}}
+    {
+        protected override void OnInit(){}
+        protected override void OnShow(){}
+        protected override void OnHide(){}
+        protected override void OnDestroy(){}
+    }
+}
