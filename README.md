@@ -5,7 +5,14 @@
 
 
 ## 使用方法
-1. 打开"FGUI Work Flow / Settings"，设置各种选项
+1. 打开"FGUI Work Flow / Settings"，设置各种选项，
+
+  - ResourceDir：fui文件的目录。
+  - OutputDir：代码输出目录。
+  - Local Output Dir：非热更包的代码输出目录。一般用来放点Login或者Loading界面。
+  - Create Partial Code: 生成代码的时候自动生成逻辑parital脚本，建议勾上。
+  - Local Packages：非热更包的package名
+  - Common Packages：通用包的Package名，若跨包引用时引用了非通用包则会报错。
 
 ![image](https://user-images.githubusercontent.com/44496710/218305133-ef858289-bae8-401b-8567-53b62117360a.png)
 
