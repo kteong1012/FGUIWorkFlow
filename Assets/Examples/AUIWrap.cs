@@ -47,20 +47,20 @@ public abstract class AUIWrap
     private void BindRoot(Type type, object bindObj, GComponent gComponent)
     {
         //遍历type对象的字段
-        foreach (FieldInfo fieldInfo in type.GetFields())
+        foreach (var propertyInfo in type.GetProperties())
         {
-            var rootObj = fieldInfo.GetCustomAttribute<FGUIComponentRoot>(false);   //获取FGUIComponentRoot标签的对象
-            var fguiObj = fieldInfo.GetCustomAttribute<FGUIObjectAttribute>(false);   //获取FGUIObject标签的对象
-            var customObj = fieldInfo.GetCustomAttribute<FGUICustomObjectAttribute>(false);   //获取FGUICustomObject标签的对象
+            var rootObj = propertyInfo.GetCustomAttribute<FGUIComponentRoot>(false);   //获取FGUIComponentRoot标签的对象
+            var fguiObj = propertyInfo.GetCustomAttribute<FGUIObjectAttribute>(false);   //获取FGUIObject标签的对象
+            var customObj = propertyInfo.GetCustomAttribute<FGUICustomObjectAttribute>(false);   //获取FGUICustomObject标签的对象
 
             if (rootObj != null)
             {
-                fieldInfo.SetValue(bindObj, gComponent);
+                propertyInfo.SetValue(bindObj, gComponent);
             }
             else if (customObj != null)
             {
                 FGUICustomObjectAttribute attribute = (FGUICustomObjectAttribute)customObj;
-                string name = fieldInfo.Name;
+                string name = propertyInfo.Name;
                 GComponent com = gComponent;
 
                 if (!string.IsNullOrEmpty(attribute.name))  //如果标签的名称名称不为空，则获取标签名称
@@ -114,14 +114,14 @@ public abstract class AUIWrap
                     continue;
                 }
 
-                var customObjCom = Activator.CreateInstance(fieldInfo.FieldType);
-                BindRoot(fieldInfo.FieldType, customObjCom, customRoot);
-                fieldInfo.SetValue(bindObj, customObjCom);
+                var customObjCom = Activator.CreateInstance(propertyInfo.PropertyType);
+                BindRoot(propertyInfo.PropertyType, customObjCom, customRoot);
+                propertyInfo.SetValue(bindObj, customObjCom);
             }
             else if (fguiObj != null)
             {
                 FGUIObjectAttribute attribute = (FGUIObjectAttribute)fguiObj;
-                string name = fieldInfo.Name;
+                string name = propertyInfo.Name;
                 GComponent com = gComponent;
 
                 if (!string.IsNullOrEmpty(attribute.name))
@@ -159,7 +159,7 @@ public abstract class AUIWrap
                         }
                     }
                 }
-                if (fieldInfo.FieldType == typeof(Controller))
+                if (propertyInfo.PropertyType == typeof(Controller))
                 {
                     Controller ctrl = com.GetController(name);
                     if (ctrl == null)
@@ -167,9 +167,9 @@ public abstract class AUIWrap
                         Debug.LogError($"找不到控制器{name},不存在或者不是控制器类型。, {type.Name}");
                         continue;
                     }
-                    fieldInfo.SetValue(bindObj, ctrl);
+                    propertyInfo.SetValue(bindObj, ctrl);
                 }
-                else if (fieldInfo.FieldType == typeof(Transition))
+                else if (propertyInfo.PropertyType == typeof(Transition))
                 {
                     Transition tran = com.GetTransition(name);
                     if (tran == null)
@@ -177,9 +177,9 @@ public abstract class AUIWrap
                         Debug.LogError($"找不到动效{name},不存在或者不是动效类型。, {type.Name}");
                         continue;
                     }
-                    fieldInfo.SetValue(bindObj, tran);
+                    propertyInfo.SetValue(bindObj, tran);
                 }
-                else if (fieldInfo.FieldType == typeof(GComponent))
+                else if (propertyInfo.PropertyType == typeof(GComponent))
                 {
                     GObject gobj = com.GetChild(name);
                     if (gobj == null)
@@ -193,20 +193,20 @@ public abstract class AUIWrap
                         Debug.LogError($"找不到组件{name},不存在或者不是组件类型, {type.Name}");
                         continue;
                     }
-                    fieldInfo.SetValue(bindObj, c);
+                    propertyInfo.SetValue(bindObj, c);
                 }
                 else
                 {
                     GObject gObj = com.GetChild(name);
                     if (gObj != null)
                     {
-                        if (gObj.GetType() != fieldInfo.FieldType)
+                        if (gObj.GetType() != propertyInfo.PropertyType)
                         {
-                            Debug.LogError($"{type.Name}的{name}绑定失败,字段名{fieldInfo.Name},字段类型:{fieldInfo.FieldType.Name},组件类型{gObj.GetType().Name}。");
+                            Debug.LogError($"{type.Name}的{name}绑定失败,字段名{propertyInfo.Name},字段类型:{propertyInfo.PropertyType.Name},组件类型{gObj.GetType().Name}。");
                         }
                         else
                         {
-                            fieldInfo.SetValue(bindObj, gObj);
+                            propertyInfo.SetValue(bindObj, gObj);
                         }
                     }
                     else

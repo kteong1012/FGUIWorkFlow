@@ -21,5 +21,6 @@ public class FGUIManager
         UIPackage.AddPackage(obj.PackageName);
         var gobj = UIPackage.CreateObjectFromURL(obj.Url);
         GRoot.inst.AddChild(gobj);
+        obj.Init(gobj.asCom);
     }
 }

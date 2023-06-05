@@ -15,6 +15,7 @@ MonoBehaviour:
   resourceDir: Assets/Examples/Resources
   outputDir: Assets/Examples/FGUI
   localOutputDir: Assets/Examples/FGUILocal
+  createPartialCode: 1
   localPackages: []
   commonPackages:
   - AACommon
